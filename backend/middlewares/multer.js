@@ -1,5 +1,6 @@
 const multer = require('multer');
 
+// dictionnaire extensions
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpeg',
@@ -7,6 +8,7 @@ const MIME_TYPES = {
   'image/gif': 'gif',
 };
 
+// fonction d'enregistrement de fichier entrant
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, 'images');
@@ -14,7 +16,6 @@ const storage = multer.diskStorage({
   filename: (req, file, callback) => {
     const name = file.originalname.split(' ').join('_');
     const extension = MIME_TYPES[file.mimetype];
-    // callback(null, name + '_' + Date.now() + '.' + extension);
     callback(null, `${name}_${Date.now()}.${extension}`);
   },
 });
